@@ -14,6 +14,8 @@ git clone git@github.com:naderhen/flashpoint.git
 npm install
 ```
 
+Note: Unfortunately, the newest version of NPM is [very](https://github.com/npm/npm/issues/11283) [slow](https://github.com/npm/npm/issues/9632). The initial install might take longer than expected to complete, but incremental changes should be rather speedy.
+
 Once all dependencies have been installed, please start the development server from within the application directory.
 ```
 npm run server
@@ -58,6 +60,8 @@ Simply, we define a Top-Level State object that can only be updated via a dispat
 
 #### Forecast.io API
 This application utilizes the Forecast.io Weather API. For simplicity, I've manually included our API Key directly in the Express Server configuration. This should not be done in a real-life application. API Keys should be handled using your preferred secret management framework.
+
+Forecast.io provides 1000 free API calls per day, so please alert me if it requests to `/forecast` are failing for any reason. I most likely will need to bump up my quota.
 
 #### HTTP Proxying
 Because the Forecast.io API does not accept CORS Requests, we proxy all requests from our application through the Express server. You can see this very simply in `server.js`
