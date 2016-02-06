@@ -8,19 +8,9 @@ import "babel-polyfill";
 // Libraries
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router } from "react-router";
-import createBrowserHistory from 'history/lib/createBrowserHistory'
-
-// Routes
-import Routes from './common/components/Routes';
 import {ReplaySubject} from 'rxjs';
 import App from './common/components/App';
-
 import Request from 'superagent';
-
-// Base styling
-import "./common/base.css";
-
 
 // ID of the DOM element to mount app on
 const DOM_APP_EL_ID = "app";
