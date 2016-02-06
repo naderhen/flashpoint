@@ -15,9 +15,20 @@ import Request from 'superagent';
 // ID of the DOM element to mount app on
 const DOM_APP_EL_ID = "app";
 
+
+// The state$ represents and Observable Stream of the current state of the
+// application at any time. This can only be updated via new events on the
+// actions$ stream.
+
 var state$ = new ReplaySubject(1),
   	actions$ = new ReplaySubject(1);
 
+
+// Here we define the initial state of the application.
+// Cities are hard-coded for now, but this should be easily extensible to accept
+// a larger list from the server or via Google Locations for example.
+//
+// Cities are indexed by id to minimize data redudancy once a city is selected
 var initialState = {
 	requesting_forecast: false,
 	forecast_data: null,
@@ -31,6 +42,9 @@ var initialState = {
   	selectedCity: null
 };
 
+
+// This reducer is called on any update to the actions$ stream.
+// It accepts the current state, action and returns a new state.
 var reducer = function(state, action) {
   switch (action && action.key) {
     case "SELECT_CITY":
@@ -44,18 +58,32 @@ var reducer = function(state, action) {
   }
 }
 
+
+// The scan operater is an analog for the standard Javascript reduce method, but
+// works on an indeterminate observable stream. It begins with the initial state
+// and returns a new state via the reducer function  
 var combined = actions$.scan(reducer, initialState).subscribe((state) => {
   state$.next(state);
 })
 
+
+// For each change to the top-level state, we log out the current state
+// and re-render the root App Component. Note: This relies heavily on React's
+// internal diffing to prevent overly expensive redraws. Don't do this in Angular!
 state$.subscribe(
   (state) => {
   		console.log(state);
       ReactDOM.render(<App state={state}></App>, document.getElementById(DOM_APP_EL_ID));
 })
 
+// Here we simply bootstrap the application by supplying an initial city selection.
 selectCity(initialState.cities[0])
 
+
+// Typically, we would have a separate directory to house our application actions.
+// In this fairly simple app, we only have one action: selecting a city.
+// When this happens, we want the current state to reflect the loading state until
+// a response is returned.
 export function selectCity(city) {
 	if (city) {
 		console.log("Selecting City", city)
