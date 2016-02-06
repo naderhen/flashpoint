@@ -31,10 +31,6 @@ app.get('/style.css', function(req, res) {
   }
 });
 
-app.get('/semantic.css', function(req, res) {
-  res.sendFile(__dirname + '/build/semantic.css');
-});
-
 app.get('/forecast', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   request
@@ -89,5 +85,5 @@ var server = app.listen(port, function () {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Essential React listening at http://%s:%s', host, port);
+  console.log('Flashpoint Weather is listening at http://%s:%s', host, port);
 });
