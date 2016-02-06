@@ -57,6 +57,7 @@ app.get('*', function(req, res) {
  *************************************************************/
 
 if (!process.env.PRODUCTION) {
+  console.log("Configuring Webpack Dev Server")
   var webpack = require('webpack');
   var WebpackDevServer = require('webpack-dev-server');
   var config = require('./webpack.local.config');

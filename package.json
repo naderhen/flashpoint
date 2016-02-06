@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "server": "node server.js",
-    "start": "ENV=production node server.js",
+    "start": "PRODUCTION=true node server.js",
     "build": "webpack -p --progress --config webpack.production.config.js",
     "test": "nyc ava --fail-fast --verbose --require babel-register",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
