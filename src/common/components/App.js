@@ -20,6 +20,11 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="ui main container">
+        <div className="ui grid">
+          <div className="four column centered row">
+            <h1>Flashpoint Weather</h1>
+          </div>
+        </div>
       	<div className="ui grid">
       		<div className="four wide column">
       			<CityList onSelect={selectCity} cities={this.props.state.cities}></CityList>

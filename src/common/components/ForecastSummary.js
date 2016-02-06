@@ -8,7 +8,7 @@ export default class ForecastSummary extends React.Component {
 
   render() {
     var data = this.props.forecast_data.currently;
-    
+
     return (
       <div>
         <div className="ui grid">
@@ -39,15 +39,6 @@ export default class ForecastSummary extends React.Component {
               </div>
               <div className="label">
                 Feels Like
-              </div>
-            </div>
-
-            <div className="statistic">
-              <div className="value">
-                {Math.floor(data.precipProbability * 100)} %
-              </div>
-              <div className="label">
-                HI - Lo Temperature
               </div>
             </div>
 

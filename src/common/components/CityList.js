@@ -14,8 +14,11 @@ export default class CityList extends React.Component {
 
   render() {
     return (
-      <div className="ui middle aligned divided list">
-        {Object.keys(this.props.cities).map((city_id) => this.renderCityItem(this.props.cities[city_id]) )}
+      <div>
+        <p>Please select a city below:</p>
+        <div className="ui middle aligned divided list">
+          {Object.keys(this.props.cities).map((city_id) => this.renderCityItem(this.props.cities[city_id]) )}
+        </div>
       </div>
     );
   }
