@@ -36,6 +36,7 @@ export default class App extends React.Component {
           mapId="mapbox.streets"
           zoomControl={false}
           center={[location.lat, location.lng]} zoom={10}/>
+        <div className="ui divider"></div>
         <div className="ui main container">
         	<div className="ui grid">
         		<div className="four wide column">
