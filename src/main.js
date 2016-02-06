@@ -58,6 +58,7 @@ selectCity(initialState.cities[0])
 
 export function selectCity(city) {
 	if (city) {
+		console.log("Selecting City", city)
 		actions$.next({key: "SELECT_CITY", data: {city_id: city.id}});
 		actions$.next({key: "REQUESTING_FORECAST"});
 		Request

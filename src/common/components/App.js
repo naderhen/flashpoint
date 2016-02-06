@@ -27,14 +27,13 @@ export default class App extends React.Component {
       location = {lat: city.lat, lng: city.lng};
     }
 
-
-      console.log('rerendering', location)
-
     return (
       <div>
         <MapboxMap
           mapId="mapbox.streets"
           zoomControl={false}
+          cities={this.props.state.cities}
+          onSelect={selectCity}
           center={[location.lat, location.lng]} zoom={10}/>
         <div className="ui divider"></div>
         <div className="ui main container">
