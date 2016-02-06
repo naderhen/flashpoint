@@ -7,6 +7,7 @@ export default class ForecastSummary extends React.Component {
   }
 
   render() {
+
     var data = this.props.forecast_data.currently;
 
     return (

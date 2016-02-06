@@ -1,6 +1,7 @@
 import React from 'react';
 import CityList from './CityList';
 import ForecastSummary from './ForecastSummary';
+import MapboxMap from './MapboxMap.js';
 import {selectCity} from '../../main.js';
 
 export default class App extends React.Component {
@@ -18,20 +19,32 @@ export default class App extends React.Component {
   }
 
   render() {
+    // NYC is the default location
+    var location = {lat: '40.7921', lng: '-73.9439'}
+
+    if (this.props.state.selectedCity) {
+      var city = this.props.state.cities[this.props.state.selectedCity];
+      location = {lat: city.lat, lng: city.lng};
+    }
+
+
+      console.log('rerendering', location)
+
     return (
-      <div className="ui main container">
-        <div className="ui grid">
-          <div className="four column centered row">
-            <h1>Flashpoint Weather</h1>
+      <div>
+        <MapboxMap
+          mapId="mapbox.streets"
+          zoomControl={false}
+          center={[location.lat, location.lng]} zoom={10}/>
+        <div className="ui main container">
+        	<div className="ui grid">
+        		<div className="four wide column">
+        			<CityList onSelect={selectCity} cities={this.props.state.cities}></CityList>
+        		</div>
+        		<div className="twelve wide column">
+              {this.renderMainContainer()}
+        		</div>
           </div>
-        </div>
-      	<div className="ui grid">
-      		<div className="four wide column">
-      			<CityList onSelect={selectCity} cities={this.props.state.cities}></CityList>
-      		</div>
-      		<div className="twelve wide column">
-            {this.renderMainContainer()}
-      		</div>
         </div>
       </div>
     );
