@@ -59,6 +59,35 @@ export default class ForecastSummary extends React.Component {
     return map[icon] || "black";
   }
 
+  renderStatistics(data) {
+    var stats = [
+      {key: 'current_temp', label: "Current Temperature", value: Math.floor(data.temperature) + String.fromCharCode(8457)},
+      {key: 'feels_like', label: "Feels Like", value: Math.floor(data.apparentTemperature) + String.fromCharCode(8457)},
+      {key: 'chance_precip', label: "Chance of Precipitation", value: Math.floor(data.precipProbability * 100) + '%'},
+      {key: 'humidity', label: "Humidity", value: Math.floor(data.humidity * 100) + '%'},
+      {key: 'cloud_cover', label: "Cloud Cover", value: Math.floor(data.cloudCover * 100) + '%'},
+      {key: 'dew_point', label: "Dew Point", value: data.dewPoint + String.fromCharCode(8457)},
+      {key: 'wind_speed', label: "Wind Speed (mph)", value: data.windSpeed}
+    ]
+
+    return (
+      <div className="ui tiny four statistics">
+        {stats.map(function(stat) {
+          return (
+            <div key={stat.key} className="ui tiny statistic">
+              <div className="value">
+                {stat.value}
+              </div>
+              <div className="label">
+                {stat.label}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   render() {
     var data = this.props.forecast_data.currently;
 
@@ -79,70 +108,7 @@ export default class ForecastSummary extends React.Component {
           <LineChart data={this.chartData()} options={this.chartOptions()} width="750" height="250"/>
         </div>
         <div className="ui segment">
-          <div className="ui four statistics">
-            <div className="statistic">
-              <div className="value">
-                {Math.floor(data.temperature)}&#8457;
-              </div>
-              <div className="label">
-                Current Temperature
-              </div>
-            </div>
-
-            <div className="statistic">
-              <div className="value">
-                {Math.floor(data.apparentTemperature)}&#8457;
-              </div>
-              <div className="label">
-                Feels Like
-              </div>
-            </div>
-
-            <div className="statistic">
-              <div className="value">
-                {Math.floor(data.precipProbability * 100)} %
-              </div>
-              <div className="label">
-                Chance of Precipitation
-              </div>
-            </div>
-
-            <div className="statistic">
-              <div className="value">
-                {Math.floor(data.humidity * 100)} %
-              </div>
-              <div className="label">
-                Humidity
-              </div>
-            </div>
-
-            <div className="statistic">
-              <div className="value">
-                {Math.floor(data.cloudCover) * 100} %
-              </div>
-              <div className="label">
-                Cloud Cover
-              </div>
-            </div>
-
-            <div className="statistic">
-              <div className="value">
-                {data.dewPoint}&#8457;
-              </div>
-              <div className="label">
-                Dew Point
-              </div>
-            </div>
-
-            <div className="statistic">
-              <div className="value">
-                {data.windSpeed}
-              </div>
-              <div className="label">
-                Wind Speed (mph)
-              </div>
-            </div>
-          </div>
+          {this.renderStatistics(data)}
         </div>
       </div>
     );
