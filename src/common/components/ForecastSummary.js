@@ -19,7 +19,7 @@ export default class ForecastSummary extends React.Component {
     })
 
     return {
-        labels: _.map(hour_temps, function(hour_temp) { return moment(hour_temp.time).format("ddd MMM DD, hA"); }),
+        labels: _.map(hour_temps, function(hour_temp) { return moment(hour_temp.time).format("M/D, hA"); }),
         datasets: [
             {
                 label: "Hourly Temperatures",
@@ -37,8 +37,26 @@ export default class ForecastSummary extends React.Component {
 
   chartOptions() {
     return {
-      responsive: true
+      responsive: true,
+      tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %> F"
     }
+  }
+
+  getIconColor(icon) {
+    var map = {
+      'CLEAR_DAY': "#ffd700",
+      'CLEAR_NIGHT': "#003366",
+      'PARTLY_CLOUDY_DAY': "#b0e0e6",
+      'PARTLY_CLOUDY_NIGHT': "#468499",
+      'CLOUDY': "#999999",
+      'RAIN': "#191970",
+      'SLEET': "#808080",
+      'SNOW': "#dddddd",
+      'WIND': "#e3e3e3",
+      'FOG': "#c0c0c0"
+    }
+
+    return map[icon] || "black";
   }
 
   render() {
@@ -48,17 +66,18 @@ export default class ForecastSummary extends React.Component {
       <div>
         <div className="ui grid">
           <div className="six wide column">
-            <Skycons icon={this.iconName()} />
+            <Skycons icon={this.iconName()} color={this.getIconColor(this.iconName())}/>
           </div>
           <div className="ten wide column">
             <h1>{this.props.city.name}</h1>
-            <h2>{data.summary}</h2>
-            <h3>for: {moment().format("MMM DD, YYYY")}</h3>
+            <h2>Currently: {data.summary}</h2>
           </div>
         </div>
 
-        <LineChart data={this.chartData()} options={this.chartOptions()} width="750" height="250"/>
-
+        <div className="ui center aligned grid">
+          <h5>Hourly Temperature Chart</h5>
+          <LineChart data={this.chartData()} options={this.chartOptions()} width="750" height="250"/>
+        </div>
         <div className="ui segment">
           <div className="ui four statistics">
             <div className="statistic">
