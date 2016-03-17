@@ -1,6 +1,8 @@
 /**
  * App entry point
  */
+ 
+console.log('hi')
 
 // Polyfill
 import "babel-polyfill";
